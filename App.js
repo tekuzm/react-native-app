@@ -5,8 +5,8 @@ import * as Font from "expo-font";
 
 // ========== components ==========
 
-import { RegistrationScreen } from "./src/Screens/RegistrationScreen";
-import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
+import { RegistrationScreen } from "./src/Screens/RegistrationScreen.js";
+import { LoginScreen } from "./src/Screens/LoginScreen.js";
 
 // ========== App ==========
 

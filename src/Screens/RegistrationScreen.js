@@ -6,7 +6,6 @@ import {
   ImageBackground,
   Text,
   TextInput,
-  TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -15,14 +14,25 @@ import {
 
 import { Button } from "../components/Button/Button";
 
+// ========== initial state ==========
+
+const initialState = {
+  name: "",
+  email: "",
+  password: "",
+};
+
 // ========== Sign up ==========
 
 export const RegistrationScreen = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [state, setState] = useState(initialState);
 
   const hideKeyboard = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+    console.log(state);
+    setState(initialState);
   };
 
   return (
@@ -51,6 +61,10 @@ export const RegistrationScreen = () => {
                   onFocus={() => {
                     setIsShowKeyboard(true);
                   }}
+                  value={state.name}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, name: value }))
+                  }
                 ></TextInput>
                 <TextInput
                   style={styles.input}
@@ -58,6 +72,10 @@ export const RegistrationScreen = () => {
                   onFocus={() => {
                     setIsShowKeyboard(true);
                   }}
+                  value={state.email}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, email: value }))
+                  }
                 ></TextInput>
                 <TextInput
                   style={styles.input}
@@ -66,15 +84,17 @@ export const RegistrationScreen = () => {
                   onFocus={() => {
                     setIsShowKeyboard(true);
                   }}
+                  value={state.password}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, password: value }))
+                  }
                 ></TextInput>
               </View>
               <Button title="SIGN UP" onPress={hideKeyboard} />
               <View style={styles.additionalInfoWrap}>
                 <Text>
                   Already have an account?{" "}
-                  <TouchableOpacity>
-                    <Text style={styles.login}>LOG IN</Text>
-                  </TouchableOpacity>
+                  <Text style={styles.login}>LOG IN</Text>
                 </Text>
               </View>
             </View>

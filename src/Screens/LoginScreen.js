@@ -6,7 +6,6 @@ import {
   ImageBackground,
   Text,
   TextInput,
-  TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
@@ -15,14 +14,24 @@ import {
 
 import { Button } from "../components/Button/Button";
 
+// ========== initial state ==========
+
+const initialState = {
+  email: "",
+  password: "",
+};
+
 // ========== Sign up ==========
 
 export const LoginScreen = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+  const [state, setState] = useState(initialState);
 
   const hideKeyboard = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+    console.log(state);
+    setState(initialState);
   };
 
   return (
@@ -51,6 +60,10 @@ export const LoginScreen = () => {
                   onFocus={() => {
                     setIsShowKeyboard(true);
                   }}
+                  value={state.email}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, email: value }))
+                  }
                 ></TextInput>
                 <TextInput
                   style={styles.input}
@@ -59,15 +72,17 @@ export const LoginScreen = () => {
                   onFocus={() => {
                     setIsShowKeyboard(true);
                   }}
+                  value={state.password}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, password: value }))
+                  }
                 ></TextInput>
               </View>
               <Button title="LOG IN" onPress={hideKeyboard} />
               <View style={styles.additionalInfoWrap}>
                 <Text>
                   Do not have an account?{" "}
-                  <TouchableOpacity>
-                    <Text style={styles.login}>SIGN UP</Text>
-                  </TouchableOpacity>
+                  <Text style={styles.login}>SIGN UP</Text>
                 </Text>
               </View>
             </View>
