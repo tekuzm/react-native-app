@@ -5,7 +5,8 @@ import * as Font from "expo-font";
 
 // ========== components ==========
 
-import { RegistrationScreen } from "./src/Screens/RegistrationScreen.js";
+import { RegistrationScreen } from "./src/Screens/RegistrationScreen";
+import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
 
 // ========== App ==========
 
@@ -29,7 +30,8 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <RegistrationScreen />
+      {/* <RegistrationScreen /> */}
+      <LoginScreen />
 
       <StatusBar style="auto" />
     </View>
