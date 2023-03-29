@@ -1,14 +1,5 @@
 import { useState } from "react";
-import {
-  StyleSheet,
-  KeyboardAvoidingView,
-  View,
-  ImageBackground,
-  Text,
-  TextInput,
-  Keyboard,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { StyleSheet, View, Text, TextInput, Keyboard } from "react-native";
 
 // ========== components ==========
 
@@ -24,8 +15,8 @@ const initialState = {
 // ========== Sign up ==========
 
 export const LoginScreen = () => {
-  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   const hideKeyboard = () => {
     setIsShowKeyboard(false);
@@ -35,73 +26,49 @@ export const LoginScreen = () => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard}>
-      <View style={styles.container}>
-        <ImageBackground
-          source={require("../../assets/img/bg_img.png")}
-          resizeMode="cover"
-          style={styles.image}
-        >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.container}
-          >
-            <View
-              style={{
-                ...styles.form,
-                paddingBottom: isShowKeyboard ? 32 : 45,
-              }}
-            >
-              <Text style={styles.signupHeader}>Log In</Text>
-              <View style={styles.inputsWrap}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="E-mail"
-                  onFocus={() => {
-                    setIsShowKeyboard(true);
-                  }}
-                  value={state.email}
-                  onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, email: value }))
-                  }
-                ></TextInput>
-                <TextInput
-                  style={styles.input}
-                  secureTextEntry={true}
-                  placeholder="Password"
-                  onFocus={() => {
-                    setIsShowKeyboard(true);
-                  }}
-                  value={state.password}
-                  onChangeText={(value) =>
-                    setState((prevState) => ({ ...prevState, password: value }))
-                  }
-                ></TextInput>
-              </View>
-              <Button title="LOG IN" onPress={hideKeyboard} />
-              <View style={styles.additionalInfoWrap}>
-                <Text>
-                  Do not have an account?{" "}
-                  <Text style={styles.login}>SIGN UP</Text>
-                </Text>
-              </View>
-            </View>
-          </KeyboardAvoidingView>
-        </ImageBackground>
+    <View
+      style={{
+        ...styles.form,
+        paddingBottom: isShowKeyboard ? 32 : 45,
+      }}
+    >
+      <Text style={styles.signupHeader}>Log In</Text>
+      <View style={styles.inputsWrap}>
+        <TextInput
+          style={styles.input}
+          placeholder="E-mail"
+          onFocus={() => {
+            setIsShowKeyboard(true);
+          }}
+          value={state.email}
+          onChangeText={(value) =>
+            setState((prevState) => ({ ...prevState, email: value }))
+          }
+        ></TextInput>
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}
+          placeholder="Password"
+          onFocus={() => {
+            setIsShowKeyboard(true);
+          }}
+          value={state.password}
+          onChangeText={(value) =>
+            setState((prevState) => ({ ...prevState, password: value }))
+          }
+        ></TextInput>
       </View>
-    </TouchableWithoutFeedback>
+      <Button title="LOG IN" onPress={hideKeyboard} />
+      <View style={styles.additionalInfoWrap}>
+        <Text>
+          Do not have an account? <Text style={styles.login}>SIGN UP</Text>
+        </Text>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  image: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
   form: {
     paddingTop: 32,
     paddingHorizontal: 16,
