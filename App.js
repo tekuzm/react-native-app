@@ -10,30 +10,25 @@ import {
 import { StatusBar } from "expo-status-bar";
 import * as Font from "expo-font";
 
+import INITIAL_STATE from "./constants/initialState";
+
 // ========== components ==========
 
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen.js";
 import { LoginScreen } from "./src/Screens/LoginScreen.js";
-
-// ========== initial state ==========
-
-const initialState = {
-  email: "",
-  password: "",
-};
 
 // ========== App ==========
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(INITIAL_STATE);
 
   const hideKeyboard = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
     console.log(state);
-    setState(initialState);
+    setState(INITIAL_STATE);
   };
 
   const loadApp = async () => {

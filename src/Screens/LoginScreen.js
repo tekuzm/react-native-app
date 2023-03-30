@@ -1,28 +1,27 @@
 import { useState } from "react";
 import { StyleSheet, View, Text, TextInput, Keyboard } from "react-native";
 
+import INITIAL_STATE from "../../constants/initialState";
+
 // ========== components ==========
 
 import { Button } from "../components/Button/Button";
 
-// ========== initial state ==========
-
-const initialState = {
-  email: "",
-  password: "",
-};
-
-// ========== Sign up ==========
+// ========== Log in ==========
 
 export const LoginScreen = () => {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(INITIAL_STATE);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   const hideKeyboard = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
     console.log(state);
-    setState(initialState);
+    setState(INITIAL_STATE);
+  };
+
+  const handleInput = (name, value) => {
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
   return (
@@ -41,9 +40,7 @@ export const LoginScreen = () => {
             setIsShowKeyboard(true);
           }}
           value={state.email}
-          onChangeText={(value) =>
-            setState((prevState) => ({ ...prevState, email: value }))
-          }
+          onChangeText={(value) => handleInput("email", value)}
         ></TextInput>
         <TextInput
           style={styles.input}
@@ -53,9 +50,7 @@ export const LoginScreen = () => {
             setIsShowKeyboard(true);
           }}
           value={state.password}
-          onChangeText={(value) =>
-            setState((prevState) => ({ ...prevState, password: value }))
-          }
+          onChangeText={(value) => handleInput("password", value)}
         ></TextInput>
       </View>
       <Button title="LOG IN" onPress={hideKeyboard} />
