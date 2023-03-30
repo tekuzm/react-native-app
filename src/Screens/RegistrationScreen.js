@@ -1,14 +1,5 @@
 import { useState } from "react";
-import {
-  StyleSheet,
-  KeyboardAvoidingView,
-  View,
-  ImageBackground,
-  Text,
-  TextInput,
-  Keyboard,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { StyleSheet, View, Text, TextInput, Keyboard } from "react-native";
 
 import INITIAL_STATE from "../../constants/initialState";
 
@@ -82,14 +73,6 @@ export const RegistrationScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  image: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
   form: {
     paddingTop: 32,
     paddingHorizontal: 16,
