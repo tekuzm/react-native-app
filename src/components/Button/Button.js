@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontFamily: "Roboto-Regular",
-    fontWeight: 700,
+    fontWeight: "700",
     fontSize: 16,
     lineHeight: 19,
     color: "#FFFFFF",

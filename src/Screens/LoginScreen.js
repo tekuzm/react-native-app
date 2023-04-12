@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   signupHeader: {
     fontFamily: "Roboto-Regular",
-    fontWeight: 700,
+    fontWeight: "700",
     fontSize: 30,
     lineHeight: 35,
     textAlign: "center",
@@ -103,6 +103,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   login: {
-    fontWeight: 700,
+    fontWeight: "700",
   },
 });
