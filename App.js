@@ -1,45 +1,45 @@
 import { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  ImageBackground,
-  Keyboard,
-  KeyboardAvoidingView,
-} from "react-native";
+import { StyleSheet, Keyboard } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import * as Font from "expo-font";
-
-import INITIAL_STATE from "./constants/initialState";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import * as SplashScreen from "expo-splash-screen";
 
 // ========== components ==========
 
-import { RegistrationScreen } from "./src/Screens/RegistrationScreen.js";
-import { LoginScreen } from "./src/Screens/LoginScreen.js";
+import { RegistrationScreen } from "./src/Screens/auth/RegistrationScreen.js";
+import { LoginScreen } from "./src/Screens/auth/LoginScreen.js";
 
 // ========== App ==========
 
+const AuthStack = createStackNavigator();
+
 const App = () => {
   const [isReady, setIsReady] = useState(false);
-  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [state, setState] = useState(INITIAL_STATE);
 
-  const hideKeyboard = () => {
-    setIsShowKeyboard(false);
-    Keyboard.dismiss();
-    console.log(state);
-    setState(INITIAL_STATE);
-  };
-
-  const loadApp = async () => {
+  async function loadFonts() {
     await Font.loadAsync({
       "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
+      "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
+      "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
     });
-    setIsReady(true);
-  };
+  }
 
   useEffect(() => {
-    loadApp();
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+        await loadFonts();
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setIsReady(true);
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    prepare();
   }, []);
 
   if (!isReady) {
@@ -47,37 +47,13 @@ const App = () => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard}>
-      <View style={styles.container}>
-        <ImageBackground
-          source={require("./assets/img/bg_img.png")}
-          resizeMode="cover"
-          style={styles.image}
-        >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.container}
-          >
-            {/* <RegistrationScreen /> */}
-            <LoginScreen />
-
-            <StatusBar style="auto" />
-          </KeyboardAvoidingView>
-        </ImageBackground>
-      </View>
-    </TouchableWithoutFeedback>
+    <NavigationContainer>
+      <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+        <AuthStack.Screen name="Login" component={LoginScreen} />
+        <AuthStack.Screen name="Registration" component={RegistrationScreen} />
+      </AuthStack.Navigator>
+    </NavigationContainer>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-  image: {
-    flex: 1,
-    justifyContent: "flex-end",
-  },
-});
